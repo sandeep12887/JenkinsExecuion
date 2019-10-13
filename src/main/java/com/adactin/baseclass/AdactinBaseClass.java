@@ -30,30 +30,30 @@ public class AdactinBaseClass {
 		try {
 			if (browsername.equalsIgnoreCase("chrome")) {
 				System.setProperty("webdriver.chrome.driver",
-						"C:\\\\Users\\\\admin\\\\eclipse-workspace\\\\samples\\\\Driver\\\\chromedriver.exe");
+						System.getProperty("user.dir") + "\\Driver\\chromedriver.exe");
 				driver = new ChromeDriver();
-				
+
 			} else if (browsername.equalsIgnoreCase("ie")) {
 				System.setProperty("webdriver.ie.driver",
 						System.getProperty("user.dir") + "\\Driver\\IEDriverServer.exe");
 				driver = new InternetExplorerDriver();
-				
-			}else if (browsername.equalsIgnoreCase("firefox")) {
+
+			} else if (browsername.equalsIgnoreCase("firefox")) {
 				System.setProperty("webdriver.gecko.driver",
 						System.getProperty("user.dir") + "\\Driver\\geckodriver.exe");
 				driver = new ChromeDriver();
 				driver.manage().window().maximize();
-			}else {
+			} else {
 				throw new Exception("Not a valid Browser");
 			}
 			return driver;
-			
+
 		} catch (Exception e) {
-		e.printStackTrace();
-		throw new RuntimeException();
+			e.printStackTrace();
+			throw new RuntimeException();
 		}
-	} 	
-	
+	}
+
 	public static WebDriver getUrl(String url) throws Exception {
 		try {
 			driver.get(url);
@@ -61,60 +61,60 @@ public class AdactinBaseClass {
 			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 			return driver;
 		} catch (Exception e) {
-		e.printStackTrace();
-		throw new RuntimeException();
+			e.printStackTrace();
+			throw new RuntimeException();
 		}
 	}
-	
+
 	public static boolean elementDisplayed(WebElement element) throws Exception {
-        try {
+		try {
 			boolean displayed = element.isDisplayed();
 			return displayed;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException();
 		}
-		
-        
 
 	}
+
 	public static boolean elementEnabled(WebElement element) throws Exception {
-        try {
+		try {
 			boolean enabled = element.isEnabled();
 			return enabled;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException();
 		}
-		
-    }
-	
+
+	}
+
 	public static boolean elementSelected(WebElement element) throws Exception {
-        try {
+		try {
 			boolean selected = element.isSelected();
 			return selected;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException();
 		}
-		
-        }
-	
+
+	}
+
 	public static void waitUntilElementVisibility(WebElement element) throws Exception {
 		try {
 			WebDriverWait wb = new WebDriverWait(driver, 50);
 			wb.until(ExpectedConditions.visibilityOf(element));
-		
+
 		} catch (Exception e) {
-		e.printStackTrace();
-		throw new RuntimeException();
+			e.printStackTrace();
+			throw new RuntimeException();
 		}
-			}
-	public static void elementClear(WebElement element) throws Exception{
-		
+	}
+
+	public static void elementClear(WebElement element) throws Exception {
+
 		try {
 			waitUntilElementVisibility(element);
-			if (elementDisplayed(element)&&elementEnabled(element))  {	
+			if (elementDisplayed(element) && elementEnabled(element)) {
 				element.clear();
 			}
 		} catch (Exception e) {
@@ -122,54 +122,54 @@ public class AdactinBaseClass {
 			throw new RuntimeException();
 		}
 	}
-	
-	public static void inputValueMethod(WebElement element, String value)throws Exception {
+
+	public static void inputValueMethod(WebElement element, String value) throws Exception {
 		try {
 			waitUntilElementVisibility(element);
-			if (elementDisplayed(element)&&elementEnabled(element)) {
+			if (elementDisplayed(element) && elementEnabled(element)) {
 				element.clear();
 				element.sendKeys(value);
-				
+
 			}
 		} catch (Exception e) {
-		e.printStackTrace();
-		throw new RuntimeException();
+			e.printStackTrace();
+			throw new RuntimeException();
 		}
 	}
-	
-	public static void elementClick(WebElement element)throws Exception {
+
+	public static void elementClick(WebElement element) throws Exception {
 		try {
 			waitUntilElementVisibility(element);
 			element.click();
 		} catch (Exception e) {
-		e.printStackTrace();
-		throw new RuntimeException();
+			e.printStackTrace();
+			throw new RuntimeException();
 		}
-		
+
 	}
-	
+
 	public static String getElementText(WebElement element) {
 		try {
 			waitUntilElementVisibility(element);
 			String text = element.getText();
 			return text;
 		} catch (Exception e) {
-		e.printStackTrace();
-		throw new RuntimeException();
+			e.printStackTrace();
+			throw new RuntimeException();
 		}
 	}
-	
+
 	public static String getElementAttributetext(WebElement element) {
-     try {
-		waitUntilElementVisibility(element);
-		 String attribute = element.getAttribute("value");
-		 return attribute;
-	} catch (Exception e) {
-	e.printStackTrace();
-	throw new RuntimeException();
+		try {
+			waitUntilElementVisibility(element);
+			String attribute = element.getAttribute("value");
+			return attribute;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
 	}
-}
-	
+
 	public static String getTitle() {
 		try {
 			String title = driver.getTitle();
@@ -179,24 +179,24 @@ public class AdactinBaseClass {
 			throw new RuntimeException();
 		}
 	}
-	
+
 	public static void selectValueFromDD(WebElement element, String options, String value) throws Exception {
 		try {
 			waitUntilElementVisibility(element);
 			Select sc = new Select(element);
 			if (options.equalsIgnoreCase("value")) {
 				sc.selectByValue(value);
-			}else if (options.equalsIgnoreCase("index")) {
+			} else if (options.equalsIgnoreCase("index")) {
 				sc.selectByIndex(Integer.parseInt(value));
-			}else if (options.equalsIgnoreCase("visibletext")) {
+			} else if (options.equalsIgnoreCase("visibletext")) {
 				sc.selectByVisibleText(value);
 			}
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			throw new RuntimeException();
-		} 
+		}
 	}
-	
+
 	public static void moveToElement(WebElement element) {
 		try {
 			waitUntilElementVisibility(element);
@@ -206,9 +206,9 @@ public class AdactinBaseClass {
 			e.printStackTrace();
 			throw new RuntimeException();
 		}
-		
+
 	}
-	
+
 	public static void dragAndDrop(WebElement source, WebElement target) {
 		try {
 			waitUntilElementVisibility(source);
@@ -219,7 +219,7 @@ public class AdactinBaseClass {
 			throw new RuntimeException();
 		}
 	}
-	
+
 	public static void doubleclick(WebElement element) {
 		try {
 			waitUntilElementVisibility(element);
@@ -230,7 +230,7 @@ public class AdactinBaseClass {
 			throw new RuntimeException();
 		}
 	}
-	
+
 	public static void contextClick(WebElement element) {
 		try {
 			waitUntilElementVisibility(element);
@@ -241,7 +241,7 @@ public class AdactinBaseClass {
 			throw new RuntimeException();
 		}
 	}
-	
+
 	public static void elementClickUsingActions(WebElement element) {
 		try {
 			waitUntilElementVisibility(element);
@@ -252,7 +252,7 @@ public class AdactinBaseClass {
 			throw new RuntimeException();
 		}
 	}
-	
+
 	public static void elementInputValueUsingActions(WebElement element, String value) {
 		try {
 			waitUntilElementVisibility(element);
@@ -263,7 +263,7 @@ public class AdactinBaseClass {
 			throw new RuntimeException();
 		}
 	}
-	
+
 	public static void scrollUpandDownUsingElement(WebElement element) {
 		try {
 			waitUntilElementVisibility(element);
@@ -274,32 +274,32 @@ public class AdactinBaseClass {
 			throw new RuntimeException();
 		}
 	}
-	
+
 	public static void scrollUpandDownUsngCoordinates(String width, String height) {
-		
+
 		try {
 			JavascriptExecutor js = (JavascriptExecutor) driver;
-			js.executeScript("windows.scrollBy("+width+","+height+")");
+			js.executeScript("windows.scrollBy(" + width + "," + height + ")");
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException();
 		}
 	}
-	
-	public static File takeScreenShot(String filename) throws IOException  {
+
+	public static File takeScreenShot(String filename) throws IOException {
 		try {
-			File f = new File(System.getProperty("user.dir")+"\\Library\\"+filename+".png");
+			File f = new File(System.getProperty("user.dir") + "\\Library\\" + filename + ".png");
 			TakesScreenshot ts = (TakesScreenshot) driver;
-			File temp=ts.getScreenshotAs(OutputType.FILE);
+			File temp = ts.getScreenshotAs(OutputType.FILE);
 			FileUtils.copyFile(temp, f);
 			return f;
 		} catch (WebDriverException e) {
 			e.printStackTrace();
 			throw new RuntimeException();
-		} 
+		}
 	}
 
-	 public static void scrolltoBottomPage() {
+	public static void scrolltoBottomPage() {
 		try {
 			JavascriptExecutor js = (JavascriptExecutor) driver;
 			js.executeScript("window.scrollTo(0,document.body.scrollHeaith)");
@@ -308,114 +308,114 @@ public class AdactinBaseClass {
 			throw new RuntimeException();
 		}
 	}
-	 
-	 public static void waitForAlertIsPresent() {
-		 try {
+
+	public static void waitForAlertIsPresent() {
+		try {
 			WebDriverWait wb = new WebDriverWait(driver, 50);
-			 wb.until(ExpectedConditions.alertIsPresent());
-		} catch (Exception e) {
-		 e.printStackTrace();
-		 throw new RuntimeException();
-		}
-	 }
-	 
-	 public static void simpleAlert() {
-		 try {
-			waitForAlertIsPresent();
-			 Alert alert = driver.switchTo().alert();
-			 alert.accept();
+			wb.until(ExpectedConditions.alertIsPresent());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException();
 		}
-	 }
-	 
-	 public static void confirmAlert(String options) {
-		 try {
+	}
+
+	public static void simpleAlert() {
+		try {
 			waitForAlertIsPresent();
-			 Alert alert = driver.switchTo().alert();
-			 if (options.equalsIgnoreCase("confirm")) {
+			Alert alert = driver.switchTo().alert();
+			alert.accept();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
+	}
+
+	public static void confirmAlert(String options) {
+		try {
+			waitForAlertIsPresent();
+			Alert alert = driver.switchTo().alert();
+			if (options.equalsIgnoreCase("confirm")) {
 				alert.accept();
-			}else if (options.equalsIgnoreCase("dismiss")) {
+			} else if (options.equalsIgnoreCase("dismiss")) {
 				alert.dismiss();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException();
 		}
-	 }
-	 
-	 public static void promptAlert(String options, String values) {
-		 try {
+	}
+
+	public static void promptAlert(String options, String values) {
+		try {
 			waitForAlertIsPresent();
-			 Alert alert = driver.switchTo().alert();
-			 if (options.equalsIgnoreCase("confirm")) {
+			Alert alert = driver.switchTo().alert();
+			if (options.equalsIgnoreCase("confirm")) {
 				alert.sendKeys(values);
 				alert.accept();
-			}else if (options.equalsIgnoreCase("dismiss")) {
+			} else if (options.equalsIgnoreCase("dismiss")) {
 				alert.dismiss();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException();
 		}
-	 }
-	 
-	 public static WebDriver navigationtToUrl(String url) {
+	}
+
+	public static WebDriver navigationtToUrl(String url) {
 		try {
 			driver.navigate().to(url);
-			 
-			 return driver;
+
+			return driver;
 		} catch (Exception e) {
-		e.printStackTrace();
-		throw new RuntimeException();
+			e.printStackTrace();
+			throw new RuntimeException();
 		}
-		 
-	 }
-	 
-	 public static WebDriver navigationCommands(String option) {
+
+	}
+
+	public static WebDriver navigationCommands(String option) {
 		try {
 			if (option.equalsIgnoreCase("back")) {
 				driver.navigate().back();
-			}else if (option.equalsIgnoreCase("forward")) {
+			} else if (option.equalsIgnoreCase("forward")) {
 				driver.navigate().forward();
-			}else if (option.equalsIgnoreCase("refresh")) {
+			} else if (option.equalsIgnoreCase("refresh")) {
 				driver.navigate().refresh();
 			}
-			 
-			 return driver;
+
+			return driver;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException();
 		}
-		 
-	 }
-	 
-	 public static void swithToIframe(String options, Object value) {
-		 try {
+
+	}
+
+	public static void swithToIframe(String options, Object value) {
+		try {
 			if (options.equalsIgnoreCase("index")) {
-				driver.switchTo().frame(Integer.parseInt((String)value));
-			}else if (options.equalsIgnoreCase("name")) {
-				driver.switchTo().frame((String)value);
-			}else if (options.equalsIgnoreCase("element")) {
-				driver.switchTo().frame((WebElement)value);
+				driver.switchTo().frame(Integer.parseInt((String) value));
+			} else if (options.equalsIgnoreCase("name")) {
+				driver.switchTo().frame((String) value);
+			} else if (options.equalsIgnoreCase("element")) {
+				driver.switchTo().frame((WebElement) value);
 			}
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
-			
+
 		}
-	 }
-	 
-	 public static void switchToDefaultContent() {
-	        try {
-				driver.switchTo().defaultContent();
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException();
-			}
 	}
-	 
-	 public static void switchToSecondWindow() {
+
+	public static void switchToDefaultContent() {
+		try {
+			driver.switchTo().defaultContent();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
+	}
+
+	public static void switchToSecondWindow() {
 		try {
 			String cid = driver.getWindowHandle();
 			Set<String> pid = driver.getWindowHandles();
@@ -423,7 +423,7 @@ public class AdactinBaseClass {
 				if (!x.equals(cid)) {
 					driver.switchTo().window(x);
 				}
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -431,43 +431,36 @@ public class AdactinBaseClass {
 		}
 
 	}
-	 
-	 public static void switchToMultipleWindow(int index) {
-		 try {
+
+	public static void switchToMultipleWindow(int index) {
+		try {
 			String cid = driver.getWindowHandle();
-			 Set<String> pid = driver.getWindowHandles();
-			 List<String> li = new ArrayList<String>();
-			 li.addAll(pid);
-			 driver.switchTo().window(li.get(index));
+			Set<String> pid = driver.getWindowHandles();
+			List<String> li = new ArrayList<String>();
+			li.addAll(pid);
+			driver.switchTo().window(li.get(index));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException();
 		}
-		 
-	 }
-	 
-	 public static void getValueFromWebtable(String element, int i) {
-		 try {
+
+	}
+
+	public static void getValueFromWebtable(String element, int i) {
+		try {
 			WebElement table = driver.findElement(By.xpath(element));
-			 List<WebElement> findElements = table.findElements(By.xpath("//tr[0]//td["+i+"]"));
-			 for (WebElement x : findElements) {
-				 System.out.println(x.getText());
-				
+			List<WebElement> findElements = table.findElements(By.xpath("//tr[0]//td[" + i + "]"));
+			for (WebElement x : findElements) {
+				System.out.println(x.getText());
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException();
 		}
-	 }
-	 
-	 
-	 
-	 public static void driverQuit() {
-		 driver.quit();
-	 }
+	}
+
+	public static void driverQuit() {
+		driver.quit();
+	}
 }
-
-
-
-
-

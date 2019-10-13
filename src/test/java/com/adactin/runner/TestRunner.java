@@ -24,7 +24,7 @@ import cucumber.api.junit.Cucumber;
 		"json:src\\test\\resource\\reports\\report.json",
 		"junit:src\\test\\resource\\reports\\report.xml" },
 		features = "src\\test\\java\\com\\adactin\\feature\\",
-		tags = {"@TC1,@TC2"},
+		tags = {"@TC1"},
 		dryRun = false,strict=true,
 		glue = "com.adactin.stepdefinition",
 		monochrome = true
